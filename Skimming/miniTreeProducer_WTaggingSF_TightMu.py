@@ -623,7 +623,7 @@ class miniTreeProducer:
                   DR_AK8Jet_Matched = 1
 
 
-                if abs(self.AK4Puppijet0_eta[0]) < 2.4 and self.AK4Puppijet0_csv[0] > 0.8484 and DR_TightMuon_Matched == 0 and DR_AK8Jet_Matched == 0 and self.AK4Puppijet0_pt[0] > 30.:
+                if abs(self.AK4Puppijet0_eta[0]) < 2.4 and self.AK4Puppijet0_csv[0] > 0.8838 and DR_TightMuon_Matched == 0 and DR_AK8Jet_Matched == 0 and self.AK4Puppijet0_pt[0] > 30.:
 		  nBTaggedAK4Jet += 1
 
                 DR_TightMuon_Matched = 0
@@ -649,7 +649,7 @@ class miniTreeProducer:
                   DR_AK8Jet_Matched = 1
 
 
-                if abs(self.AK4Puppijet1_eta[0]) < 2.4 and self.AK4Puppijet1_csv[0] > 0.8484 and DR_TightMuon_Matched == 0 and DR_AK8Jet_Matched == 0 and self.AK4Puppijet1_pt[0] > 30:
+                if abs(self.AK4Puppijet1_eta[0]) < 2.4 and self.AK4Puppijet1_csv[0] > 0.8838 and DR_TightMuon_Matched == 0 and DR_AK8Jet_Matched == 0 and self.AK4Puppijet1_pt[0] > 30:
                   nBTaggedAK4Jet += 1
 
                 DR_TightMuon_Matched = 0
@@ -675,7 +675,7 @@ class miniTreeProducer:
                   DR_AK8Jet_Matched = 1
 
 
-                if abs(self.AK4Puppijet2_eta[0]) < 2.4 and self.AK4Puppijet2_csv[0] > 0.8484 and DR_TightMuon_Matched == 0 and DR_AK8Jet_Matched == 0 and self.AK4Puppijet2_pt[0] > 30.:
+                if abs(self.AK4Puppijet2_eta[0]) < 2.4 and self.AK4Puppijet2_csv[0] > 0.8838 and DR_TightMuon_Matched == 0 and DR_AK8Jet_Matched == 0 and self.AK4Puppijet2_pt[0] > 30.:
                   nBTaggedAK4Jet += 1
 
                 DR_TightMuon_Matched = 0
@@ -701,7 +701,7 @@ class miniTreeProducer:
                   DR_AK8Jet_Matched = 1
 
 
-                if abs(self.AK4Puppijet3_eta[0]) < 2.4 and self.AK4Puppijet3_csv[0] > 0.8484 and DR_TightMuon_Matched == 0 and DR_AK8Jet_Matched == 0 and self.AK4Puppijet3_pt[0] > 30:
+                if abs(self.AK4Puppijet3_eta[0]) < 2.4 and self.AK4Puppijet3_csv[0] > 0.8838 and DR_TightMuon_Matched == 0 and DR_AK8Jet_Matched == 0 and self.AK4Puppijet3_pt[0] > 30:
                   nBTaggedAK4Jet += 1
 
 		#Leptonic W pT
