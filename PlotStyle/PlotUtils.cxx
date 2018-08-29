@@ -265,13 +265,13 @@ TLatex* banner4Plot(const std::string & channel, const float & lumi, const int &
  std::cout<<"############### draw the banner ########################"<<std::endl;
  TString bannerName;
 
-  bannerName.Form("                      CMS Preliminary, %.1f fb^{-1} (#sqrt{s} = 13 TeV)",lumi);
+  bannerName.Form("%.1f fb^{-1} (#sqrt{s} = 13 TeV)",lumi);
 
  TLatex* banner = NULL ;
  
  if(iswithpull){
-   banner = new TLatex(0.3,0.96,bannerName.Data());
-   banner->SetNDC(); banner->SetTextSize(0.04);
+   banner = new TLatex(0.72,0.96,bannerName.Data());
+   banner->SetNDC(); banner->SetTextSize(0.04); banner->SetTextFont(42);
  }
  else{
     banner = new TLatex(0.22,0.96,bannerName.Data());
@@ -281,6 +281,52 @@ TLatex* banner4Plot(const std::string & channel, const float & lumi, const int &
  return banner;
 
 }
+
+//Drawing CMS
+TLatex* banner4Plot_CMS(const std::string & channel, const float & lumi, const int & iswithpull, const int & forPaper){
+
+ std::cout<<"############### draw the banner ########################"<<std::endl;
+ TString bannerName;
+
+  bannerName.Form("CMS");
+
+ TLatex* banner = NULL ;
+
+ if(iswithpull){
+   banner = new TLatex(0.16,0.96,bannerName.Data());
+   banner->SetNDC(); banner->SetTextSize(0.04); banner->SetTextFont(61);
+ }
+ else{
+    banner = new TLatex(0.22,0.96,bannerName.Data());
+    banner->SetNDC(); banner->SetTextSize(0.033);
+ }                                                                              
+
+ return banner;
+
+}
+// Drawing Preliminary
+TLatex* banner4Plot_Preliminary(const std::string & channel, const float & lumi, const int & iswithpull, const int & forPaper){
+
+ std::cout<<"############### draw the banner ########################"<<std::endl;
+ TString bannerName;
+
+  bannerName.Form("Preliminary");
+
+ TLatex* banner = NULL ;
+
+ if(iswithpull){
+   banner = new TLatex(0.225,0.96,bannerName.Data());
+   banner->SetNDC(); banner->SetTextSize(0.025); banner->SetTextFont(52);
+ }
+ else{
+    banner = new TLatex(0.22,0.96,bannerName.Data());
+    banner->SetNDC(); banner->SetTextSize(0.033);
+ }
+
+ return banner;
+
+}
+
 
 // in order to make the legend                                                                                                                                                      
 TLegend* legend4Plot(RooPlot* plot, const int & left, const double & x_offset_low, const double & y_offset_low,  const double & x_offset_high, const double & y_offset_high, const int & TwoCoulum, const std::string & channel ){
@@ -489,7 +535,7 @@ void draw_canvas(RooPlot* in_obj, const std::string & in_directory, const TStrin
   int iPos=11;
   writeExtraText = true;
   extraText  = "Preliminary";
-  lumi_13TeV  = "35.8 fb^{-1}";
+  lumi_13TeV  = "35.9 fb^{-1}";
   lumi_sqrtS = "13 TeV";
   CMS_lumi( cMassFit, iPeriod, iPos );
   cMassFit->Update();
@@ -569,7 +615,11 @@ void draw_canvas_with_pull(RooPlot* mplot, RooPlot* mplot_pull, RooArgList* para
   pad2->cd();
   mplot->Draw();
   TLatex* banner = banner4Plot(channel,lumi,1);
+  TLatex* banner_CMS = banner4Plot_CMS(channel,lumi,1);
+  TLatex* banner_Preliminary = banner4Plot_Preliminary(channel,lumi,1);
   banner->Draw();
+  banner_CMS->Draw();
+  banner_Preliminary->Draw();
 
   pad1->cd();
   mplot_pull->Draw();
@@ -893,9 +943,9 @@ void setTDRStyle(){
 
 float GetLumi(const std::string & channel){
  
-  if(channel=="el") return 35.8;
-  else if(channel=="mu") return 35.8;
-  else if(channel=="em") return 35.8;
+  if(channel=="el") return 35.9;
+  else if(channel=="mu") return 35.9;
+  else if(channel=="em") return 35.9;
 
   return -1 ;
 }
