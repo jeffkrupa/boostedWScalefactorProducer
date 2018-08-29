@@ -6,12 +6,8 @@
 cmsenv in CMSSW_7_4_7
 
 setup root:
-
-
-setenv ROOFITSYS /cvmfs/cms.cern.ch/slc6_amd64_gcc491/lcg/roofit/5.34.22-cms
-
-
-source /cvmfs/cms.cern.ch/slc6_amd64_gcc491/lcg/root/5.34.22-cms/bin/thisroot.csh
+export ROOFITSYS="/cvmfs/cms.cern.ch/slc6_amd64_gcc491/lcg/roofit/5.34.22-cms"
+source /cvmfs/cms.cern.ch/slc6_amd64_gcc491/lcg/root/5.34.22-cms/bin/thisroot.sh
 
 ### getting the code
 clone the repo
@@ -20,7 +16,7 @@ clone the repo
 
 ```
 python Automatic_Setup.py --vclean 1#To compile
-python wtagSFfits_N2DDT.py -b   #To run
+python wtagSFfits_N2DDT_2017.py -b --useN2DDT   #To run
 ```
 
 The basic script to be run is 
