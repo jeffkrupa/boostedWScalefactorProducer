@@ -3,37 +3,30 @@
 #########################################
 
 ## installation instructions
-Source ROOT version 5.34/36 independently (currently no CMSSW version with ROOT 5.34.X with X>18 available), e.g at PSI:
-```
-source /swshare/ROOT/root_v5.34.32_precompiled/root/bin/thisroot/.sh
-```
-### getting the code
+cmsenv in CMSSW_7_4_7
 
-```
-export GITUSER=`git config user.github`
-echo "Your github username has been set to \"$GITUSER\""
-git clone git@github.com:${GITUSER}/boostedWScalefactorProducer.git
-cd boostedWScalefactorProducer
-git remote add originalRemote git@github.com:thaarres/boostedWScalefactorProducer.git
-git fetch originalRemote
-git checkout -b DevelopmentBranch thaarres/DevelopmentBranch
-cd $CMSSW_BASE/src
-cd boostedWScalefactorProducer
-export ROOFITSYS=$ROOTSYS
-python Automatic_Setup.py --vclean 1
-```
+setup root:
+
+
+setenv ROOFITSYS /cvmfs/cms.cern.ch/slc6_amd64_gcc491/lcg/roofit/5.34.22-cms
+
+
+source /cvmfs/cms.cern.ch/slc6_amd64_gcc491/lcg/root/5.34.22-cms/bin/thisroot.csh
+
+### getting the code
+clone the repo
 
 ### running
 
 ```
-python Automatic_Setup.py #To compile
-python wtagSFfits.py -b   #To run
+python Automatic_Setup.py --vclean 1#To compile
+python wtagSFfits_N2DDT.py -b   #To run
 ```
 
 The basic script to be run is 
 
 ```
-python wtagSFfits.py
+python wtagSFfits_N2DDT.py
 ```
 It takes as input .root files containing a TTree with a branch for the mass distribution you want to calculate a scalefactor for. This branch can contain events after full selection is applied, or new selections can be implemented on the fly in wtagSFfits.py. In addition to a data and the separate background MC files, you need one file called "*pseudodata* wchich contains all MC added together (with their appropriate weights, using ROOT hadd).
 
@@ -51,4 +44,5 @@ It takes as input .root files containing a TTree with a branch for the mass dist
     --76X : Use files with postfix "_76X" (change to postfix of your choice if running on several different samples)
     --useDDT : Uses DDT tagger instead of pruning+softdrop (ops! Requires softdrop variables)
     --usePuppiSD : Uses PUPPI + softdrop and PUPPI n-subjettiness
+    --useN2DDT: Uses N2DDT
 ```
