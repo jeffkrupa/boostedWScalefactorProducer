@@ -3,12 +3,13 @@
 #########################################
 
 ## installation instructions
-cmsenv in CMSSW_7_4_7
-
-setup root:
+```
+cmsrel CMSSW_7_4_7
+cd CMSSW_7_4_7/src
+cmsenv
 export ROOFITSYS="/cvmfs/cms.cern.ch/slc6_amd64_gcc491/lcg/roofit/5.34.22-cms"
 source /cvmfs/cms.cern.ch/slc6_amd64_gcc491/lcg/root/5.34.22-cms/bin/thisroot.sh
-
+```
 ### getting the code
 clone the repo
 
