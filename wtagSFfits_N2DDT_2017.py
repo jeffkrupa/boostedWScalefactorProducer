@@ -145,7 +145,9 @@ def drawFrameGetChi2(variable,fitResult,dataset,pdfModel,isData):
     addInfo.Draw()
     c1.Update()
     cname = pdfModel.GetName()
+
     c1.SaveAs("plots/%s_%s.pdf"%(cname,options.sample))
+    c1.SaveAs("plots/%s_%s.png"%(cname,options.sample))
     c1.SaveAs("plots/%s_%s.root"%(cname,options.sample))
     return chi2
 
@@ -276,6 +278,7 @@ def drawDataAndMC(variable,fitResult,dataset,pdfModel,isData,variable2,fitResult
     addInfo.Draw()
     c1.Update()
     cname = pdfModel.GetName()
+    c1.SaveAs("plots/CombinedPlot_%s.png"%(cname))
     c1.SaveAs("plots/CombinedPlot_%s.pdf"%(cname))
     c1.SaveAs("plots/CombinedPlot_%s.root"%(cname))
     c1.SaveAs("plots/CombinedPlot_%s.C"%(cname))
@@ -290,7 +293,7 @@ def getSF():
 
 def doFitsToMatchedTT():
     workspace4fit_ = RooWorkspace("workspace4fit_","workspace4fit_")
-    ttMC_fitter = initialiseFits("em", options.sample, 40, 130, workspace4fit_)
+    ttMC_fitter = initialiseFits("em", options.sample, 40, 250, workspace4fit_)
 
     ttMC_fitter.get_mj_dataset(ttMC_fitter.file_TTbar_mc,"_TTbar_realW")
     ttMC_fitter.get_mj_dataset(ttMC_fitter.file_TTbar_mc,"_TTbar_fakeW")
@@ -330,7 +333,7 @@ def doFitsToMatchedTT():
         
 def doFitsToMC():
     workspace4fit_ = RooWorkspace("workspace4fit_","workspace4fit_")
-    boostedW_fitter_em = initialiseFits("em", options.sample, 40, 130, workspace4fit_)
+    boostedW_fitter_em = initialiseFits("em", options.sample, 40, 250, workspace4fit_)
     boostedW_fitter_em.get_datasets_fit_minor_bkg()
     print "Finished fitting MC! Plots can be found in plots_*_MCfits. Printing workspace:"
     workspace4fit_.Print()
@@ -465,7 +468,7 @@ def GetWtagScalefactors(workspace,fitter):
 class doWtagFits:
     def __init__(self):
         self.workspace4fit_ = RooWorkspace("workspace4fit_","workspace4fit_")                           # create workspace
-        self.boostedW_fitter_em = initialiseFits("em", options.sample, 40, 130, self.workspace4fit_)    # Define all shapes to be used for Mj, define regions (SB,signal) and input files. 
+        self.boostedW_fitter_em = initialiseFits("em", options.sample, 40, 250, self.workspace4fit_)    # Define all shapes to be used for Mj, define regions (SB,signal) and input files. 
         self.boostedW_fitter_em.get_datasets_fit_minor_bkg()                                            # Loop over intrees to create datasets om Mj and fit the single MCs.
        
         print "Printing workspace:"; self.workspace4fit_.Print(); print ""
@@ -638,7 +641,7 @@ class doWtagFits:
 class initialiseFits:
 
     # Constructor: Input is channel (mu,ele,em), range in mj and a workspace
-    def __init__(self, in_channel, in_sample, in_mj_min=40, in_mj_max=130, input_workspace=None):
+    def __init__(self, in_channel, in_sample, in_mj_min=40, in_mj_max=250, input_workspace=None):
       
       RooAbsPdf.defaultIntegratorConfig().setEpsRel(1e-9)
       RooAbsPdf.defaultIntegratorConfig().setEpsAbs(1e-9)
@@ -738,7 +741,7 @@ class initialiseFits:
       rrv_mass_j.setRange("sb_lo",self.mj_sideband_lo_min,self.mj_sideband_lo_max) # 30-65 GeV
       rrv_mass_j.setRange("signal_region",self.mj_signal_min,self.mj_signal_max)   # 65-105 GeV
       rrv_mass_j.setRange("sb_hi",self.mj_sideband_hi_min,self.mj_sideband_hi_max) # 105-135 GeV
-      rrv_mass_j.setRange("controlsample_fitting_range",40,130) # ---> what is this????
+      rrv_mass_j.setRange("controlsample_fitting_range",40,250) # ---> what is this????
         
       tag = 'CA15TopSel'
 
@@ -786,7 +789,7 @@ class initialiseFits:
       self.color_palet["Other_Backgrounds"] = 1    
       
       # Cuts (dont need these cuts if they are already implemented in ROOT tree)
-      self.vpt_cut      = 200   # hadronic and leptonic W cut
+      self.vpt_cut      = 350. #was 200   # hadronic and leptonic W cut
       self.mass_lvj_max = 5000. # invariant mass of 3 body max
       self.mass_lvj_min = 0.    # invariant mass of 3 body min
       self.pfMET_cut    = 40.    # missing transverse energy
@@ -1035,7 +1038,7 @@ class initialiseFits:
           treeIn.GetEntry(i)
           
           # w-tag sf by pt
-          #if treeIn.Puppijet0_pt < 300: continue # or treeIn.Puppijet0_pt > 400: continue
+          if treeIn.Puppijet0_pt < self.vpt_cut: continue # or treeIn.Puppijet0_pt > 400: continue
           
 
           if TString(label).Contains("realW") and not getattr(treeIn,"LeadingJet_MatchedHadW"): #Is a real W, meaning both daughters of W is within jet cone!!
